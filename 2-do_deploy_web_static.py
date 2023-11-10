@@ -11,7 +11,7 @@ from os import path
 # Define the web server IPs and username for Fabric
 env.hosts = ['52.91.157.33', '3.85.148.37']
 env.user = 'ubuntu'
-env.key_filename = '~/.ssh/id_rsa'
+env.key_filename = '~/.ssh/school '
 
 
 def do_deploy(archive_path):
