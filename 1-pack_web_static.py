@@ -2,6 +2,7 @@
 from fabric.api import local
 from time import strftime
 
+
 def do_pack():
     """
     A Fabric script that generates a .tgz archive from
@@ -24,4 +25,3 @@ def do_pack():
     except Exception as e:
         print("Error: {}".format(e))
         return None
-
