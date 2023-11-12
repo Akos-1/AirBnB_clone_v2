@@ -1,50 +1,31 @@
 #!/usr/bin/python3
-from fabric.api import env, task
+from fabric.api import env, put, run, local
 from os.path import exists
+from datetime import datetime
 
 # Set the user and hosts using Fabric environment variables
 env.user = 'ubuntu'
 env.hosts = ['52.91.157.33', '3.85.148.37']
 
 
-def deploy():
-    """
-    Creates and distributes an archive to the web servers
-    """
-
-    # Call the do_pack function and store the path of the created archive
-    archive_path = do_pack()
-
-    # Return False if no archive has been created
-    if not archive_path:
-        return False
-
-    # Call the do_deploy function using the new path of the new archive
-    return do_deploy(archive_path)
-
-
 def do_pack():
     """
-    A Fabric script that generates a .tgz archive from
-    the contents of the web_static folder
-    folder of my AirBnB Clone repo
+    Generates a .tgz archive from the contents of the web_static folder
     """
 
-    try:
-        # Create the 'versions' directory if it doesn't exist
-        local("mkdir -p versions")
+    # Create the folder if it doesn't exist
+    local("mkdir -p versions")
 
-        # Generate filename based on the current date and time
-        filename = "web_static_{}.tgz".format(datetime.now().strftime("%Y%m%d%H%M%S"))
+    # Generate the file name with the current timestamp
+    now = datetime.now().strftime("%Y%m%d%H%M%S")
+    file_name = "web_static_{}.tgz".format(now)
 
-        # Create the .tgz archive
-        local("tar -czvf versions/{} web_static/".format(filename))
+    # Compress the contents of web_static into the archive
+    result = local("tar -cvzf versions/{} web_static".format(file_name), capture=True)
 
-        return "versions/{}".format(filename) if exists("versions/{}".format(filename)) else None
+    # Return the path to the created archive if successful, otherwise return None
+    return "versions/{}".format(file_name) if exists("versions/{}".format(file_name)) and result.succeeded else None
 
-    except Exception as e:
-        print("Error: {}".format(e))
-        return None
 
 def do_deploy(archive_path):
     """
@@ -87,3 +68,19 @@ def do_deploy(archive_path):
     except Exception as e:
         print("Error: {}".format(e))
         return False
+
+
+def deploy():
+    """
+    Creates and distributes an archive to the web servers
+    """
+
+    # Call do_pack and store the path of the created archive
+    archive_path = do_pack()
+
+    # Return False if no archive has been created
+    if not archive_path:
+        return False
+
+    # Call do_deploy using the new path of the new archive
+    return do_deploy(archive_path)
