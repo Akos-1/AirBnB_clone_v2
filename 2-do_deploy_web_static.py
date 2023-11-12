@@ -6,6 +6,7 @@ from os.path import exists
 env.user = 'ubuntu'
 env.hosts = ['52.91.157.33', '3.85.148.37']
 
+
 def do_deploy(archive_path):
     """
     Distributes an archive to the web servers
