@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+    <META charset="UTF-8">
+    <META name="viewport" content="width=device-width, initial-scale=1.0">
+    <TITLE>States List</TITLE>
+</HEAD>
+<BODY>
+    <H1>States</H1>
+    <UL>
+        {% for state in states %}
+            <LI><B>{{ state.id }}:</B> {{ state.name }}</LI>
+        {% endfor %}
+    </UL>
+</BODY>
+</HTML>
