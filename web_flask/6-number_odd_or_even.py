@@ -48,7 +48,10 @@ def number_template(n):
 def number_odd_or_even(n):
     """Displays an HTML page with a header tag
     indicating if n is even or odd."""
-    return render_template('number_odd_or_even.html', number=n, result='even' if n % 2 == 0 else 'odd')
+    return render_template(
+        'number_odd_or_even.html',
+        number=n,
+        result='even' if n % 2 == 0 else 'odd')
 
 
 if __name__ == "__main__":
