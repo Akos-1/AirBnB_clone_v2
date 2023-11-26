@@ -9,7 +9,8 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """Returns a dictionary of models or a list of objects of a specific class."""
+        """Returns a dictionary of models or
+        a list of objects of a specific class."""
         if cls is None:
             return FileStorage.__objects
         else:
@@ -60,3 +61,7 @@ class FileStorage:
             key = obj.__class__.__name__ + '.' + obj.id
             if key in self.all():
                 del self.all()[key]
+
+    def close(self):
+        """Call reload() method for deserializing the JSON file to objects."""
+        self.reload()

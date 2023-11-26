@@ -20,11 +20,21 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-            """ Getter attribute for cities that returns a list of City instances with state_id
-            equals to the current State.id """
+            """ Getter attribute for cities that returns a list of City
+            instances with state_id equals to the current State.id """
             from models import storage
             city_list = []
             for city in storage.all("City").values():
                 if city.state_id == self.id:
                     city_list.append(city)
             return city_list
+
+        def cities(self):
+            """Public getter method to return the list of City
+        objects from storage linked to the current State"""
+        from models import storage
+        city_list = []
+        for city in storage.all("City").values():
+            if city.state_id == self.id:
+                city_list.append(city)
+        return city_list
