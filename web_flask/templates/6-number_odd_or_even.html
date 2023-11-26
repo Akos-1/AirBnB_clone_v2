@@ -1,11 +1,16 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <HTML lang="en">
 <HEAD>
     <META charset="UTF-8">
     <META name="viewport" content="width=device-width, initial-scale=1.0">
-    <TITLE>Number Odd or Even</TITLE>
+    <TITLE>Number Information</TITLE>
 </HEAD>
 <BODY>
-    <H1>Number: {{ number }} is {{ 'even' if number % 2 == 0 else 'odd' }}</H1>
+    <H1>Number: {{ number }}</H1>
+    {% if is_even %}
+        <P>The number is even.</P>
+    {% else %}
+        <P>The number is odd.</P>
+    {% endif %}
 </BODY>
 </HTML>
